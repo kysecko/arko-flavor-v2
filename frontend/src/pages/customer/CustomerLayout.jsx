@@ -1,4 +1,4 @@
-import CustomerSidebar from "../../components/layout/CustomerSidebar";
+import CustomerSidebar from "../../components/customer/CustomerSidebar";
 
 function CustomerLayout() {
     return (

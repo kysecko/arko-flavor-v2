@@ -20,11 +20,14 @@ ChartJS.register(
 );
 
 import {
-    CurrencyDollarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, WalletIcon, CalendarIcon, EllipsisVerticalIcon
+    CurrencyDollarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, WalletIcon, CalendarIcon, EllipsisVerticalIcon,
+    
 } from "@heroicons/react/24/outline";
 
 import DropdownInput from './../../components/ui/DropdownInput';
 import { useState } from "react";
+import AdminHeader from "../../components/admin/Header";
+
 
 // cards data
 const Cards = [
@@ -134,20 +137,12 @@ const cashFlowData = {
 function Dashboard() {
     const [year, setYear] = useState();
 
+
     return (
         <div>
 
             {/* header */}
-            <div>
-                <h2 className="text-lg sm:text-2xl font-bold">
-                    Welcome Back, Admin 👋
-                </h2>
-                <p className="text-sm text-gray-600 mt-1 font-manrope">
-                    Get an overview of inventory, orders, suppliers, sales, and waste tracking in one place.
-                </p>
-            </div>
-
-            <hr className="my-4 border-gray-200" />
+           <AdminHeader title="Dashboard" description="Get an overview of inventory, orders, suppliers, sales, and waste tracking in one place." />
 
             {/* cards */}
             <div

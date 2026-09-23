@@ -1,4 +1,4 @@
-import AdminSidebar from "../../components/layout/AdminSidebar";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 
 function AdminLayout() {
     return (

@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
 
     const { data: profile, error: profileError } = await supabaseAdmin
       .from('users')
-      .select('id, email, role, phone')
+      .select('id, username, email, role, phone')
       .eq('auth_id', data.user.id)
       .single();
 
