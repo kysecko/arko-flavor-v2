@@ -43,7 +43,7 @@ function AdminSidebar() {
         { name: "Dashboard", icon: Squares2X2Icon, activeIcon: Squares2X2IconSolid, to: "/admin/dashboard" },
         { name: "Inventory", icon: ArchiveBoxIcon, activeIcon: ArchiveBoxIconSolid, to: "/admin/inventory" },
         { name: "Products", icon: CubeIcon, activeIcon: CubeIconSolid, to: "/admin/products" },
-        { name: "Orders", icon: ClipboardDocumentListIcon, activeIcon: ClipboardDocumentListIconSolid, to: "/admin/orders" },
+        { name: "Orders", icon: ClipboardDocumentListIcon, activeIcon: ClipboardDocumentListIconSolid, to: "/admin/orders/" },
         { name: "Payments", icon: CreditCardIcon, activeIcon: CreditCardIconSolid, to: "/admin/payment" },
         { name: "Sales", icon: ShoppingCartIcon, activeIcon: ShoppingCartIconSolid, to: "/admin/sales" },
         { name: "Expenses", icon: BanknotesIcon, activeIcon: BanknotesIconSolid, to: "/admin/expenses" },
