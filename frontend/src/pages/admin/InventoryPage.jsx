@@ -5,7 +5,9 @@ import {
     CheckCircleIcon,
     MagnifyingGlassIcon,
     ArrowDownTrayIcon,
-    ArrowUpTrayIcon
+    ArrowUpTrayIcon,
+    PencilSquareIcon,
+    TrashIcon
 } from "@heroicons/react/24/outline";
 
 import AdminHeader from "../../components/admin/Header";
@@ -47,9 +49,90 @@ const Cards = [
     },
 ];
 
+const TableData = [
+    {
+        rawMaterial: "Bangus Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱175 | Ala Carte: ₱145 | Egg Fried Rice: ₱195",
+        currentStock: 5,
+        status: "Low Stock",
+    },
+    {
+        rawMaterial: "Chicken Fillet Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱135 | Ala Carte: ₱110 | Egg Fried Rice: ₱160",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Chicken Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱135 | Ala Carte: ₱110 | Egg Fried Rice: ₱160",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Fish Fillet Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱140 | Ala Carte: ₱115 | Egg Fried Rice: ₱165",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Hotdog Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱85 | Ala Carte: ₱55 | Egg Fried Rice: ₱110",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Hungarian Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱105 | Ala Carte: ₱80 | Egg Fried Rice: ₱130",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Longganisa With Egg Fried Rice",
+        unit: "Garlic Flavor",
+        usedIn: "Original: ₱170 | Ala Carte: ₱115 | With Garlic Rice and Eggs: ₱145",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Shanghai Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱105 | Ala Carte: ₱80 | Egg Fried Rice: ₱110",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Tapa Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱145 | Ala Carte: ₱115 | Egg Fried Rice: ₱170",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+    {
+        rawMaterial: "Tocino Silog",
+        unit: "",
+        usedIn: "With Garlic Rice and Eggs: ₱135 | Ala Carte: ₱110 | Egg Fried Rice: ₱160",
+        currentStock: 0,
+        status: "Out of Stock",
+    },
+];
+
 // const goToProduct (){
 //     navigation.navigate('P')
 // }
+
+function handleEdit() {
+    console.log("gege");
+};
+
+function handleDelete() {
+    console.log("hehe")
+}
 function InventoryPage() {
     return (
         <div className="gap-3">
@@ -91,33 +174,99 @@ function InventoryPage() {
 
             {/* search and buttons */}
             <div className="flex justify-end w-full items-center gap-3 mt-6">
-                <div className="w-120">
-                    <SearchBar icon={MagnifyingGlassIcon} placeholder="Search anything" className="border-blue-500" />
+                <div className="w-80">
+                    <SearchBar icon={MagnifyingGlassIcon} placeholder="Search anything" className="rounded-full! px-4 py-3 border-blue-500" />
                 </div>
                 <Button
                     text="Import"
                     icon={ArrowDownTrayIcon}
                     iconClassName="w-5 h-5"
-                    className="w-24 bg-gray-100 border-0 text-blue-500 font-semibold text-sm p-5 hover:bg-gray-200"
+                    className="rounded-full! w-24 bg-gray-100 border-0 text-blue-500 font-semibold px-4 py-3 text-sm p-5 hover:bg-gray-200"
                 />
 
                 <Button
                     text="Export"
                     icon={ArrowUpTrayIcon}
                     iconClassName="w-5 h-5"
-                    className="w-24 bg-gray-100 border-0 text-blue-500 font-semibold text-sm p-5 hover:bg-gray-200"
+                    className="rounded-full! w-24 bg-gray-100 border-0 text-blue-500 font-semibold px-4 py-3 text-sm p-5 hover:bg-gray-200"
                 />
 
                 <Button
                     // onClick={goToProduct}
                     text={"View Products"}
-                    className="bg-blue-500 border-0 text-white font-semibold text-sm p-5 "
+                    className="rounded-full! bg-blue-500 border-0 text-white font-semibold px-4 py-3 text-sm p-5"
                 />
             </div>
 
+            {/* table */}
+            <div className="mt-6 w-full bg-white rounded-lg shadow-md overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                    <thead className="bg-blue-50 text-gray-600 uppercase text-xs font-semibold">
+                        <tr>
+                            <th className="px-4 py-3">Raw Material</th>
+                            <th className="px-4 py-3">Unit</th>
+                            <th className="px-4 py-3">Used In</th>
+                            <th className="px-4 py-3">Current Stock</th>
+                            <th className="px-4 py-3">Status</th>
+                            <th className="px-4 py-3">Action</th>
+                        </tr>
+                    </thead>
 
+                    <tbody className="divide-y divide-gray-100">
+                        {TableData.map((item, index) => (
+                            <tr key={index} className="hover:bg-gray-50">
+                                <td className="px-4 py-3 text-gray-800 font-bold">
+                                    {item.rawMaterial}
+                                </td>
 
+                                <td className="px-4 py-3 text-gray-600">
+                                    {item.unit}
+                                </td>
 
+                                <td className="px-4 py-3 text-gray-600">
+                                    {item.usedIn}
+                                </td>
+
+                                <td className="px-4 py-3 text-gray-600">
+                                    {item.currentStock}
+                                </td>
+
+                                <td className="px-4 py-3">
+                                    <span
+                                        className={`px-2 py-1 rounded-full text-xs font-medium ${item.status === "In Stock"
+                                            ? "bg-green-100 text-green-700"
+                                            : item.status === "Low Stock"
+                                                ? "bg-yellow-100 text-yellow-700"
+                                                : "bg-red-100 text-red-700"
+                                            }`}
+                                    >
+                                        {item.status}
+                                    </span>
+                                </td>
+
+                                <td className="px-4 py-3">
+                                    <div className="flex gap-2">
+                                        <Button
+                                            icon={PencilSquareIcon}
+                                            text={"Edit"}
+                                            onClick={() => handleEdit(item)}
+                                            className="px-3 py-1 text-xs font-medium text-blue-600 bg-blue-50 rounded border-0 hover:bg-blue-100"
+                                        />
+
+                                        <Button
+                                            icon={TrashIcon}
+                                            text={"Delete"}
+                                            onClick={() => handleDelete(item)}
+                                            className="px-3 py-1 text-xs font-medium text-red-600 bg-red-50 rounded border-0 hover:bg-red-100"
+
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

@@ -20,7 +20,6 @@ import CustomerLayout from '../pages/customer/CustomerLayout';
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import InventoryPage from "../pages/admin/InventoryPage";
 import ProductPage from "../pages/admin/ProductPage";
-import OrderPage from "../pages/admin/OrderPage";
 import PaymentPage from "../pages/admin/PaymentPage";
 import SalesPage from "../pages/admin/SalesPage";
 import ExpensePage from "../pages/admin/ExpensePage";
@@ -28,6 +27,11 @@ import ReportPage from "../pages/admin/ReportPage";
 import SummaryPage from "../pages/admin/SummaryPage";
 import SettingPage from "../pages/admin/SettingPage.jsx";
 import AdminLayout from "../pages/admin/AdminLayout.jsx";
+
+import AllOrders from "../pages/admin/orders/AllOrders";
+import CompletedOrders from "../pages/admin/orders/CompletedOrders";
+import InProgressOrders from "../pages/admin/orders/InProgressOrders";
+import CancelledOrders from "../pages/admin/orders/CancelledOrders";
 
 function AuthRedirect({ children }) {
   const { isAuthenticated, role } = useAuth();
@@ -45,7 +49,7 @@ function AppRoutes() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth/login" element={<AuthRedirect><LoginPage /></AuthRedirect>} />
       <Route path="/auth/register" element={<AuthRedirect><RegisterPage /></AuthRedirect>} />
-      <Route path="/auth/verify" element={ <AuthRedirect><VerifyPage /></AuthRedirect>} />
+      <Route path="/auth/verify" element={<AuthRedirect><VerifyPage /></AuthRedirect>} />
 
       {/* customer routes */}
       <Route
@@ -77,13 +81,20 @@ function AppRoutes() {
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="inventory" element={<InventoryPage />} />
         <Route path="products" element={<ProductPage />} />
-        <Route path="orders" element={<OrderPage />} />
         <Route path="payment" element={<PaymentPage />} />
         <Route path="sales" element={<SalesPage />} />
         <Route path="expenses" element={<ExpensePage />} />
         <Route path="reports" element={<ReportPage />} />
         <Route path="summary" element={<SummaryPage />} />
         <Route path="settings" element={<SettingPage />} />
+
+        <Route path="orders">
+          <Route index element={<Navigate to="all" replace />} />
+          <Route path="all" element={<AllOrders />} />
+          <Route path="completed" element={<CompletedOrders />} />
+          <Route path="inprogress" element={<InProgressOrders />} />
+          <Route path="cancelled" element={<CancelledOrders />} />
+        </Route>
       </Route>
     </Routes>
   );
