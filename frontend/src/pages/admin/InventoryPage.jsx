@@ -7,7 +7,8 @@ import {
     ArrowDownTrayIcon,
     ArrowUpTrayIcon,
     PencilSquareIcon,
-    TrashIcon
+    TrashIcon,
+    ArrowUpIcon, ArrowDownIcon
 } from "@heroicons/react/24/outline";
 
 import AdminHeader from "../../components/admin/Header";
@@ -20,6 +21,8 @@ const Cards = [
         icon: ArchiveBoxIcon,
         title: "Total Items",
         number: 12215,
+        threshold: 10000,
+        tag: "Total stock count",
         iconColor: "text-blue-500",
         bgColor: "bg-blue-50",
     },
@@ -28,6 +31,8 @@ const Cards = [
         icon: ExclamationTriangleIcon,
         title: "Out of Stock",
         number: 421,
+        threshold: 10000,
+        tag: "Needs restocking",
         iconColor: "text-red-500",
         bgColor: "bg-red-50",
     },
@@ -36,6 +41,8 @@ const Cards = [
         icon: ArchiveBoxArrowDownIcon,
         title: "Low Stock",
         number: 932,
+        threshold: 10000,
+        tag: "Re-stock soon",
         iconColor: "text-amber-500",
         bgColor: "bg-amber-50",
     },
@@ -44,6 +51,8 @@ const Cards = [
         icon: CheckCircleIcon,
         title: "In Stock",
         number: 10862,
+        threshold: 10000,
+        tag: "Available items",
         iconColor: "text-emerald-500",
         bgColor: "bg-emerald-50",
     },
@@ -145,31 +154,37 @@ function InventoryPage() {
             <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
 
-                {Cards.map((card) => (
-                    <div className="w-full bg-white border border-blue-100 rounded-xl p-4 sm:p-5 shadow-sm" key={card.id}>
+                {Cards.map((card) => {
+                    const isHigh = card.number >= card.threshold;
 
-                        <div className="flex items-center gap-3 mb-3">
+                    return (
+                        <div className="w-full bg-white border border-blue-100 rounded-xl p-4 sm:p-5 shadow-sm" key={card.id}>
 
-                            <div className={`flex items-center justify-center w-10 h-10 rounded-lg shrink-0 ${card.bgColor}`}>
-                                <card.icon className={`w-5 h-5 ${card.iconColor}`} />
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className={`flex items-center justify-center w-10 h-10 rounded-lg shrink-0 ${card.bgColor}`}>
+                                    <card.icon className={`w-5 h-5 ${card.iconColor}`} />
+                                </div>
+                                <h3 className="text-base font-semibold text-black-700">
+                                    {card.title}
+                                </h3>
                             </div>
 
-                            <h3 className="text-base font-semibold text-black-700">
-                                {card.title}
-                            </h3>
+                            <p className="text-black text-xl sm:text-3xl font-bold mb-2">
+                                ₱{card.number.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
+                            </p>
+
+                            {/* tag — red/down below 10000, green/up at 10000+ */}
+                            <p className={`flex items-center gap-1 text-[12px] font-medium ${isHigh ? "text-green-600" : "text-red-500"}`}>
+                                {isHigh
+                                    ? <ArrowUpIcon className="w-3.5 h-3.5" />
+                                    : <ArrowDownIcon className="w-3.5 h-3.5" />}
+                                {card.tag}
+                            </p>
 
                         </div>
+                    );
+                })}
 
-                        <p className="text-black text-xl sm:text-3xl font-bold mb-2">
-                            ₱{card.number.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
-                        </p>
-
-                        <p className="text-[12px] text-gray-500 font-medium">
-                            {card.tag}
-                        </p>
-
-                    </div>
-                ))}
             </div>
 
             {/* search and buttons */}
