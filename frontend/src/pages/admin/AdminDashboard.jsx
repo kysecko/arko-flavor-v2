@@ -154,7 +154,7 @@ function Dashboard() {
 
                         <div className="flex items-center gap-3 mb-3" key={card.id}>
 
-                            <div className="    flex items-center justify-center w-10 h-10 bg-blue-50 rounded-lg shrink-0">
+                            <div className="flex items-center justify-center w-10 h-10 bg-blue-50 rounded-lg shrink-0">
                                 <card.icon className="w-5 h-5 text-blue-600" />
                             </div>
 
