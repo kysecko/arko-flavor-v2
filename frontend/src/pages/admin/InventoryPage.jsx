@@ -146,7 +146,7 @@ function InventoryPage() {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
 
                 {Cards.map((card) => (
-                    <div className="w-full bg-white p-4 sm:p-5 rounded-lg shadow-md" key={card.id}>
+                    <div className="w-full bg-white border border-blue-100 rounded-xl p-4 sm:p-5 shadow-sm" key={card.id}>
 
                         <div className="flex items-center gap-3 mb-3">
 

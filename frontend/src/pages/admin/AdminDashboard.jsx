@@ -150,7 +150,7 @@ function Dashboard() {
 
                 {Cards.map((card) =>
                 (
-                    <div className="w-full bg-white p-4 sm:p-5 rounded-lg shadow-md">
+                    <div className="w-full bg-white border border-blue-100 rounded-xl p-4 sm:p-5 shadow-sm">
 
                         <div className="flex items-center gap-3 mb-3" key={card.id}>
 

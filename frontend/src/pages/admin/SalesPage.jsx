@@ -1,5 +1,14 @@
 import AdminHeader from "../../components/admin/Header";
-import { CurrencyDollarIcon, CheckCircleIcon, BanknotesIcon, ArrowTrendingUpIcon, ArrowUpIcon, ArrowDownIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import {
+    CurrencyDollarIcon,
+    CheckCircleIcon,
+    BanknotesIcon,
+    ArrowTrendingUpIcon,
+    ArrowUpIcon,
+    ArrowDownIcon,
+    CalendarIcon,
+    ArrowRightIcon
+} from "@heroicons/react/24/outline";
 import DropdownInput from "../../components/ui/DropdownInput";
 import { useState } from "react";
 
@@ -9,48 +18,57 @@ const Cards = [
     {
         id: 0,
         icon: CurrencyDollarIcon,
-        title: "Total Sales",
-        number: 12215.00,
-        tag: "Revenue from others",
+        title: "Total Revenue",
+        value: 0,
         threshold: 10000,
+        format: (v) =>
+            `₱${v.toLocaleString("en-PH", { minimumFractionDigits: 2 })}`,
+        tag: "From sales",
     },
     {
         id: 1,
         icon: CheckCircleIcon,
-        title: "Total Expenses",
-        number: 4221.00,
-        tag: "Total cash outflow",
-        threshold: 5000,
-        invert: true,
+        title: "Completed Orders",
+        value: 3099,
+        threshold: 1000,
+        format: (v) => v.toLocaleString("en-PH"),
+        tag: "This period",
     },
     {
         id: 2,
         icon: BanknotesIcon,
-        title: "Cash Balance",
-        number: 75932.00,
-        tag: "Current available balance",
-        threshold: 20000,
+        title: "Order Revenue",
+        value: 0,
+        threshold: 5000,
+        format: (v) =>
+            `₱${v.toLocaleString("en-PH", { minimumFractionDigits: 2 })}`,
+        tag: "From completed orders",
     },
     {
         id: 3,
         icon: ArrowTrendingUpIcon,
-        title: "Net Profit",
-        number: 15.00,
-        tag: "Revenue minus expenses",
-        threshold: 0,
+        title: "Success Rates",
+        value: 0,
+        threshold: 50,
+        format: (v) => `${v}%`,
+        tag: "Completion rate",
     },
 ];
-
 function getAccent(card) {
-    const isHigh = card.number >= card.threshold;
-    return {
-        icon: "text-blue-600",
-        iconBg: "bg-blue-50",
-        tag: isHigh ? "text-green-600" : "text-red-500",
-        ArrowIcon: isHigh ? ArrowUpIcon : ArrowDownIcon,
-    };
-}
+    const rate = card.threshold > 0
+        ? card.value / card.threshold
+        : card.value > 0 ? 1 : 0;
 
+    if (rate < 0.5) {
+        return { tagColor: "text-red-500", ArrowIcon: ArrowDownIcon };
+    }
+
+    if (rate < 1) {
+        return { tagColor: "text-amber-500", ArrowIcon: ArrowRightIcon };
+    }
+
+    return { tagColor: "text-green-600", ArrowIcon: ArrowUpIcon };
+}
 function SalesPage() {
     const [year, setYear] = useState();
 
@@ -65,33 +83,34 @@ function SalesPage() {
 
             {/* card */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
-
                 {Cards.map((card) => {
                     const style = getAccent(card);
 
                     return (
-                        <div key={card.id} className="w-full bg-white p-4 sm:p-5 rounded-lg shadow-md">
+                        <div
+                            key={card.id}
+                            className="w-full bg-white border border-blue-100 rounded-xl p-4 sm:p-5 shadow-sm"
+                        >
+                            {/* icon — always blue, never changes */}
                             <div className="flex items-center gap-3 mb-3">
-
-                                <div className={`flex items-center justify-center w-10 h-10 rounded-lg shrink-0 ${style.iconBg}`}>
-                                    <card.icon className={`w-5 h-5 ${style.icon}`} />
+                                <div className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 bg-blue-50">
+                                    <card.icon className="w-5 h-5 text-blue-600" />
                                 </div>
-
                                 <h3 className="text-base font-semibold text-gray-700">
                                     {card.title}
                                 </h3>
-
                             </div>
 
+                            {/* big number */}
                             <p className="text-black text-xl sm:text-3xl font-bold mb-2">
-                                ₱{card.number.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
+                                {card.format(card.value)}
                             </p>
 
-                            <p className={`flex items-center gap-1 text-[12px] font-medium ${style.tag}`}>
-                                <style.ArrowIcon className="w-3.5 h-3.5" />
+                            {/* tag — only this changes */}
+                            <p className={`flex items-center gap-1 text-xs font-medium ${style.tagColor}`}>
+                                <style.ArrowIcon className="h-3.5 w-3.5" />
                                 {card.tag}
                             </p>
-
                         </div>
                     );
                 })}
@@ -99,10 +118,11 @@ function SalesPage() {
 
 
             {/* table performance container */}
-            <div className="w-full flex-col h-95 mt-4 p-6 border shadow-sm border-gray-100 rounded-xl">
+            <div className="w-full flex flex-col h-95 mt-4 p-6 border shadow-sm border-gray-100 rounded-xl">
 
                 <div className="flex flex-row items-center justify-between">
                     <h2 className="text-xl font-bold">Sales Performance</h2>
+
                     <div className="flex items-center gap-3">
                         <DropdownInput
                             id="year"
@@ -122,17 +142,18 @@ function SalesPage() {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center flex-1">
+                <div className="flex flex-1 flex-col items-center justify-center">
                     <img
                         src={noRecordsImage}
                         alt="No sales data"
-                        className="mt-3 h-42 w-64 object-cover"
+                        className="h-42 w-64 object-contain"
                     />
 
                     <p className="mt-2 text-sm text-gray-500">
                         No sales data available for the selected period.
                     </p>
                 </div>
+
             </div>
         </div>
     );
