@@ -53,7 +53,7 @@ function BalanceSheet() {
                 <span className="text-sm text-gray-500 font-bold italic">As of September 26, 2026</span>
             </div>
 
-            <div className="bg-white shadow-sm border border-gray-100 rounded-lg p-5">
+            <div className="bg-white shadow-sm border border-gray-100 rounded-lg p-5  mb-4">
                 <div className="grid grid-cols-1 gap-6">
 
                     {/* assets */}
@@ -87,7 +87,7 @@ function BalanceSheet() {
                         </div>
                         <ReportRow label="Total Equity" amount={totalEquity} bold />
 
-                        <div className="border-t-2 border-gray-800 mt-2">
+                        <div className="border-t-2 border-gray-800 mt-2 mb-4">
                             <ReportRow label="Total Liabilities + Equity" amount={totalLiabilitiesAndEquity} bold />
                         </div>
                     </div>

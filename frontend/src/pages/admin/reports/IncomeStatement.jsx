@@ -49,7 +49,7 @@ function IncomeStatement() {
             <ReportTabs />
 
             <div className="flex justify-end mb-4">
-                <span className="text-sm text-gray-500">Period: September 2026</span>
+                <p className="text-sm text-gray-500 font-bold italic">Period: <span className='font-semibold italic'>September 2026</span></p>
             </div>
 
             {/* cards */}
@@ -70,7 +70,7 @@ function IncomeStatement() {
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-5">
+            <div className="bg-white rounded-lg shadow-md p-5 mb-4">
 
                 <h3 className="text-base font-semibold text-gray-800 mb-3">Revenue</h3>
                 <div className="divide-y divide-gray-100">
