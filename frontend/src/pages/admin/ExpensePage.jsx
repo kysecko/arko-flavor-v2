@@ -1,6 +1,8 @@
-import { PlusIcon, CurrencyDollarIcon, CalendarDaysIcon, CalendarDateRangeIcon, ReceiptPercentIcon, ArrowDownIcon, ArrowRightIcon,  } from "@heroicons/react/24/outline";
+import { PlusIcon, CurrencyDollarIcon, CalendarDaysIcon, CalendarDateRangeIcon, ReceiptPercentIcon, ArrowDownIcon, ArrowRightIcon, } from "@heroicons/react/24/outline";
 import DropdownButton from "../../components/ui/DropdownButton";
 import AdminHeader from "../../components/admin/Header";
+
+import noRecordsImage from "../../assets/images/Searching data.png";
 
 
 const Cards = [
@@ -55,6 +57,10 @@ const Cards = [
     },
 ];
 
+const TableData = [
+   
+];
+
 function ExpensePage() {
     return (
         <div>
@@ -71,7 +77,7 @@ function ExpensePage() {
                             key={card.id}
                             className="w-full bg-white border border-blue-100 rounded-xl p-4 sm:p-5 shadow-sm"
                         >
-                            {/* icon — always blue, never changes */}
+                            {/* icon */}
                             <div className="flex items-center gap-3 mb-3">
                                 <div className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 bg-blue-50">
                                     <card.icon className="w-5 h-5 text-blue-600" />
@@ -109,6 +115,45 @@ function ExpensePage() {
                     className=" w-64!"
                 />
             </div>
+
+            {/* table */}
+            <div className="mt-6 w-full flex flex-col h-95 p-6 border shadow-sm border-gray-100 rounded-xl overflow-x-auto">
+                {TableData.length > 0 ? (
+                    <table className="w-full text-sm text-left">
+                        <thead className="bg-blue-50 text-gray-600 uppercase text-xs font-semibold">
+                            <tr>
+                                <th className="px-4 py-3">Raw Material</th>
+                                <th className="px-4 py-3">Unit</th>
+                                <th className="px-4 py-3">Used In</th>
+                                <th className="px-4 py-3">Current Stock</th>
+                                <th className="px-4 py-3">Status</th>
+                                <th className="px-4 py-3">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="divide-y divide-gray-100">
+                            {TableData.map((_item, index) => (
+                                <tr key={index} className="hover:bg-gray-50">
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    /* empty data */
+                    <div className="flex flex-col items-center justify-center py-10">
+                        <img
+                            src={noRecordsImage}
+                            alt="No expenses"
+                            className="h-42 w-64 object-cover"
+                        />  
+                        <p className="mt-2 text-sm text-gray-500">
+                            No expense records found.
+                        </p>
+                    </div>
+                )}
+            </div>
+
+
         </div>
     );
 }

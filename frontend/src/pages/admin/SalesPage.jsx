@@ -120,10 +120,12 @@ function SalesPage() {
             {/* table performance container */}
             <div className="w-full flex flex-col h-95 mt-4 p-6 border shadow-sm border-gray-100 rounded-xl">
 
-                <div className="flex flex-row items-center justify-between">
-                    <h2 className="text-xl font-bold">Sales Performance</h2>
+                <div className="flex flex-row items-center justify-between gap-2">
+                    <h2 className="text-base sm:text-xl font-bold">
+                        Sales Performance
+                    </h2>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         <DropdownInput
                             id="year"
                             icon={CalendarIcon}
@@ -137,7 +139,7 @@ function SalesPage() {
                                 { value: "last_6_months", label: "Last 6 months" },
                                 { value: "last_12_months", label: "Last 12 months" },
                             ]}
-                            className="w-75!"
+                            className="w-40! sm:w-75!"
                         />
                     </div>
                 </div>

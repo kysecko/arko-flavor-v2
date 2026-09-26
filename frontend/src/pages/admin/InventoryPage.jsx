@@ -173,7 +173,7 @@ function InventoryPage() {
                                 ₱{card.number.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
                             </p>
 
-                            {/* tag — red/down below 10000, green/up at 10000+ */}
+                            {/* tag */}
                             <p className={`flex items-center gap-1 text-[12px] font-medium ${isHigh ? "text-green-600" : "text-red-500"}`}>
                                 {isHigh
                                     ? <ArrowUpIcon className="w-3.5 h-3.5" />

@@ -20,8 +20,8 @@ ChartJS.register(
 );
 
 import {
-    CurrencyDollarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, WalletIcon, CalendarIcon, EllipsisVerticalIcon,
-    
+    CurrencyDollarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, WalletIcon, CalendarIcon, EllipsisVerticalIcon, ArrowRightIcon
+
 } from "@heroicons/react/24/outline";
 
 import DropdownInput from './../../components/ui/DropdownInput';
@@ -142,7 +142,7 @@ function Dashboard() {
         <div>
 
             {/* header */}
-           <AdminHeader title="Dashboard" description="Get an overview of inventory, orders, suppliers, sales, and waste tracking in one place." />
+            <AdminHeader title="Dashboard" description="Get an overview of inventory, orders, suppliers, sales, and waste tracking in one place." />
 
             {/* cards */}
             <div
@@ -168,7 +168,8 @@ function Dashboard() {
                             ₱{card.number.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
                         </p>
 
-                        <p className="text-[12px] text-gray-500 font-medium">
+                        <p className="flex items-center gap-1 text-[12px] font-medium text-gray-500">
+                            <ArrowRightIcon className="w-3.5 h-3.5 shrink-0" />
                             {card.tag}
                         </p>
 
