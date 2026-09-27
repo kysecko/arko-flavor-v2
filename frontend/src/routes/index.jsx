@@ -23,15 +23,20 @@ import ProductPage from "../pages/admin/ProductPage";
 import PaymentPage from "../pages/admin/PaymentPage";
 import SalesPage from "../pages/admin/SalesPage";
 import ExpensePage from "../pages/admin/ExpensePage";
-import ReportPage from "../pages/admin/ReportPage";
 import SummaryPage from "../pages/admin/SummaryPage";
 import SettingPage from "../pages/admin/SettingPage.jsx";
 import AdminLayout from "../pages/admin/AdminLayout.jsx";
 
+// orders
 import AllOrders from "../pages/admin/orders/AllOrders";
 import CompletedOrders from "../pages/admin/orders/CompletedOrders";
 import InProgressOrders from "../pages/admin/orders/InProgressOrders";
 import CancelledOrders from "../pages/admin/orders/CancelledOrders";
+
+// reports
+import BalanceSheet from "../pages/admin/reports/BalanceSheet.jsx";
+import CashFlow from "../pages/admin/reports/CashFlow.jsx";
+import IncomeStatement from "../pages/admin/reports/IncomeStatement.jsx";
 
 function AuthRedirect({ children }) {
   const { isAuthenticated, role } = useAuth();
@@ -84,7 +89,6 @@ function AppRoutes() {
         <Route path="payment" element={<PaymentPage />} />
         <Route path="sales" element={<SalesPage />} />
         <Route path="expenses" element={<ExpensePage />} />
-        <Route path="reports" element={<ReportPage />} />
         <Route path="summary" element={<SummaryPage />} />
         <Route path="settings" element={<SettingPage />} />
 
@@ -94,6 +98,13 @@ function AppRoutes() {
           <Route path="completed" element={<CompletedOrders />} />
           <Route path="inprogress" element={<InProgressOrders />} />
           <Route path="cancelled" element={<CancelledOrders />} />
+        </Route>
+
+        <Route path="reports">
+          <Route index element={<Navigate to="balance_sheet" />} />
+          <Route path="balance_sheet" element={<BalanceSheet />} />
+          <Route path="cashflow" element={<CashFlow />} />
+          <Route path="income_statement" element={<IncomeStatement/>} />
         </Route>
       </Route>
     </Routes>
