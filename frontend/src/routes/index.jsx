@@ -24,7 +24,6 @@ import PaymentPage from "../pages/admin/PaymentPage";
 import SalesPage from "../pages/admin/SalesPage";
 import ExpensePage from "../pages/admin/ExpensePage";
 import SummaryPage from "../pages/admin/SummaryPage";
-import SettingPage from "../pages/admin/SettingPage.jsx";
 import AdminLayout from "../pages/admin/AdminLayout.jsx";
 
 // orders
@@ -37,6 +36,11 @@ import CancelledOrders from "../pages/admin/orders/CancelledOrders";
 import BalanceSheet from "../pages/admin/reports/BalanceSheet.jsx";
 import CashFlow from "../pages/admin/reports/CashFlow.jsx";
 import IncomeStatement from "../pages/admin/reports/IncomeStatement.jsx";
+
+
+import AdminProfilePage from "../pages/admin/settings/AdminProfilePage.jsx";
+import SecurityPage from "../pages/admin/settings/SecurityPage.jsx";
+import NotificationPage from "../pages/admin/settings/NotificationPage.jsx";
 
 function AuthRedirect({ children }) {
   const { isAuthenticated, role } = useAuth();
@@ -90,7 +94,6 @@ function AppRoutes() {
         <Route path="sales" element={<SalesPage />} />
         <Route path="expenses" element={<ExpensePage />} />
         <Route path="summary" element={<SummaryPage />} />
-        <Route path="settings" element={<SettingPage />} />
 
         <Route path="orders">
           <Route index element={<Navigate to="all" replace />} />
@@ -105,6 +108,13 @@ function AppRoutes() {
           <Route path="balance_sheet" element={<BalanceSheet />} />
           <Route path="cashflow" element={<CashFlow />} />
           <Route path="income_statement" element={<IncomeStatement/>} />
+        </Route>
+
+        <Route path="settings">
+          <Route index element={<Navigate to="profile" />} />
+          <Route path="profile" element={<AdminProfilePage />} />
+          <Route path="security" element={<SecurityPage />} />
+          <Route path="notification" element={<NotificationPage />} />
         </Route>
       </Route>
     </Routes>
