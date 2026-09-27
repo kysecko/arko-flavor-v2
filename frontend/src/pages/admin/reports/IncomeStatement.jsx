@@ -1,5 +1,13 @@
-import ReportTabs from '../../../components/admin/ReportTabs';
-import AdminHeader from './../../../components/admin/Header';
+import ReportTabs from "../../../components/admin/ReportTabs";
+import AdminHeader from "../../../components/admin/Header";
+
+import {
+    CurrencyDollarIcon,
+    BanknotesIcon,
+    ChartBarIcon,
+    ArrowTrendingUpIcon,
+    ArrowTrendingDownIcon,
+} from "@heroicons/react/24/outline";
 
 const revenue = [
     { label: "Product Sales", amount: 92000 },
@@ -22,11 +30,27 @@ function sum(items) {
     return items.reduce((acc, item) => acc + item.amount, 0);
 }
 
+function formatCurrency(amount) {
+    return `₱${amount.toLocaleString("en-PH", {
+        minimumFractionDigits: 2,
+    })}`;
+}
+
 function ReportRow({ label, amount, bold = false }) {
     return (
-        <div className={`flex justify-between py-2 ${bold ? "font-bold text-gray-900" : "text-gray-600"}`}>
-            <span>{label}</span>
-            <span>₱{amount.toLocaleString("en-PH", { minimumFractionDigits: 2 })}</span>
+        <div
+            className={`flex justify-between items-center py-2 ${bold
+                    ? "font-bold uppercase text-gray-900"
+                    : "text-gray-600"
+                }`}
+        >
+            <span className="text-sm">
+                {label}
+            </span>
+
+            <span className="text-sm">
+                {formatCurrency(amount)}
+            </span>
         </div>
     );
 }
@@ -38,6 +62,45 @@ function IncomeStatement() {
     const totalOpEx = sum(operatingExpenses);
     const netIncome = grossProfit - totalOpEx;
 
+    const Cards = [
+        {
+            id: 0,
+            icon: CurrencyDollarIcon,
+            title: "Total Revenue",
+            value: totalRevenue,
+            tag: "Total income generated",
+            tagColor: "text-green-600",
+            ArrowIcon: ArrowTrendingUpIcon,
+        },
+        {
+            id: 1,
+            icon: BanknotesIcon,
+            title: "Gross Profit",
+            value: grossProfit,
+            tag: "Revenue after COGS",
+            tagColor: "text-blue-600",
+            ArrowIcon: ArrowTrendingUpIcon,
+        },
+        {
+            id: 2,
+            icon: ChartBarIcon,
+            title: "Net Income",
+            value: netIncome,
+            tag:
+                netIncome >= 0
+                    ? "Profit after expenses"
+                    : "Loss after expenses",
+            tagColor:
+                netIncome >= 0
+                    ? "text-green-600"
+                    : "text-red-500",
+            ArrowIcon:
+                netIncome >= 0
+                    ? ArrowTrendingUpIcon
+                    : ArrowTrendingDownIcon,
+        },
+    ];
+
     return (
         <div>
             <AdminHeader
@@ -48,56 +111,133 @@ function IncomeStatement() {
             {/* tabs */}
             <ReportTabs />
 
+            {/* Period */}
             <div className="flex justify-end mb-4">
-                <p className="text-sm text-gray-500 font-bold italic">Period: <span className='font-semibold italic'>September 2026</span></p>
+                <p className="text-xs sm:text-sm text-gray-500 font-bold italic">
+                    Period:{" "}
+                    <span className="font-semibold">
+                        September 2026
+                    </span>
+                </p>
             </div>
 
-            {/* cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white rounded-lg shadow-md p-4">
-                    <p className="text-xs text-gray-500 font-medium mb-1">Total Revenue</p>
-                    <p className="text-xl font-bold text-green-600">₱{totalRevenue.toLocaleString("en-PH", { minimumFractionDigits: 2 })}</p>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-4">
-                    <p className="text-xs text-gray-500 font-medium mb-1">Gross Profit</p>
-                    <p className="text-xl font-bold text-blue-600">₱{grossProfit.toLocaleString("en-PH", { minimumFractionDigits: 2 })}</p>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-4">
-                    <p className="text-xs text-gray-500 font-medium mb-1">Net Income</p>
-                    <p className={`text-xl font-bold ${netIncome >= 0 ? "text-green-600" : "text-red-500"}`}>
-                        ₱{netIncome.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
-                    </p>
-                </div>
+            {/* summary cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
+                {Cards.map((card) => {
+                    const Icon = card.icon;
+                    const ArrowIcon = card.ArrowIcon;
+
+                    return (
+                        <div
+                            key={card.id}
+                            className="w-full bg-white p-4 sm:p-5 rounded-lg shadow-md"
+                        >
+                            {/* Icon + Title */}
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 bg-blue-50">
+                                    <Icon className="w-5 h-5 text-blue-600" />
+                                </div>
+
+                                <h3 className="text-sm sm:text-base font-semibold text-gray-700">
+                                    {card.title}
+                                </h3>
+                            </div>
+
+                            {/* Amount */}
+                            <p
+                                className={`text-xl sm:text-3xl font-bold mb-2 ${card.value < 0
+                                        ? "text-red-500"
+                                        : "text-black"
+                                    }`}
+                            >
+                                {formatCurrency(card.value)}
+                            </p>
+
+                            {/* Description */}
+                            <p
+                                className={`flex items-center gap-1 text-[11px] sm:text-xs font-medium ${card.tagColor}`}
+                            >
+                                <ArrowIcon className="w-3.5 h-3.5" />
+                                {card.tag}
+                            </p>
+                        </div>
+                    );
+                })}
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-5 mb-4">
+            {/* INCOME STATEMENT DETAILS */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-5 mb-4">
 
-                <h3 className="text-base font-semibold text-gray-800 mb-3">Revenue</h3>
+                {/* revenue */}
+                <h3 className="text-sm sm:text-base font-bold uppercase text-gray-800 mb-3">
+                    Revenue
+                </h3>
+
                 <div className="divide-y divide-gray-100">
                     {revenue.map((item) => (
-                        <ReportRow key={item.label} label={item.label} amount={item.amount} />
+                        <ReportRow
+                            key={item.label}
+                            label={item.label}
+                            amount={item.amount}
+                        />
                     ))}
                 </div>
-                <ReportRow label="Total Revenue" amount={totalRevenue} bold />
 
-                <h3 className="text-base font-semibold text-gray-800 mb-3 mt-6">Cost of Goods Sold</h3>
+                <ReportRow
+                    label="Total Revenue"
+                    amount={totalRevenue}
+                    bold
+                />
+
+                {/* cost of good sold */}
+                <h3 className="text-sm sm:text-base uppercase font-semibold text-gray-800 mb-3 mt-6">
+                    Cost of Goods Sold
+                </h3>
+
                 <div className="divide-y divide-gray-100">
                     {cogs.map((item) => (
-                        <ReportRow key={item.label} label={item.label} amount={item.amount} />
+                        <ReportRow
+                            key={item.label}
+                            label={item.label}
+                            amount={item.amount}
+                        />
                     ))}
                 </div>
-                <ReportRow label="Gross Profit" amount={grossProfit} bold />
 
-                <h3 className="text-base font-semibold text-gray-800 mb-3 mt-6">Operating Expenses</h3>
+                <ReportRow
+                    label="Gross Profit"
+                    amount={grossProfit}
+                    bold
+                />
+
+                {/* operating Expenses */}
+                <h3 className="text-sm sm:text-base uppercase font-semibold text-gray-800 mb-3 mt-6">
+                    Operating Expenses
+                </h3>
+
                 <div className="divide-y divide-gray-100">
                     {operatingExpenses.map((item) => (
-                        <ReportRow key={item.label} label={item.label} amount={item.amount} />
+                        <ReportRow
+                            key={item.label}
+                            label={item.label}
+                            amount={item.amount}
+                        />
                     ))}
                 </div>
-                <ReportRow label="Total Operating Expenses" amount={totalOpEx} bold />
 
+                <ReportRow
+                    label="Total Operating Expenses"
+                    amount={totalOpEx}
+                    bold
+                />
+
+                {/* net Income */}
                 <div className="border-t-2 border-gray-800 mt-4">
-                    <ReportRow label="Net Income" amount={netIncome} bold />
+                    <ReportRow
+                        label="Net Income"
+                        amount={netIncome}
+                        bold
+                    />
                 </div>
             </div>
         </div>
