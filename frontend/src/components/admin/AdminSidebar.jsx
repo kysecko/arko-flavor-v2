@@ -49,13 +49,13 @@ function AdminSidebar() {
         { name: "Expenses", icon: BanknotesIcon, activeIcon: BanknotesIconSolid, to: "/admin/expenses" },
         { name: "Reports", icon: ChartBarIcon, activeIcon: ChartBarIconSolid, to: "/admin/reports/" },
         { name: "Summary", icon: DocumentChartBarIcon, activeIcon: DocumentChartBarIconSolid, to: "/admin/summary" },
-        { name: "Settings", icon: Cog6ToothIcon, activeIcon: Cog6ToothIconSolid, to: "/admin/settings" },
+        { name: "Settings", icon: Cog6ToothIcon, activeIcon: Cog6ToothIconSolid, to: "/admin/settings/" },
     ];
 
     const [loggingOut, setLoggingOut] = useState(false);
 
     const handleLogout = () => {
-        setLoggingOut(true);
+        setLoggingOut(true);    
         logout();
         setTimeout(() => {
             window.location.replace("/auth/login");
