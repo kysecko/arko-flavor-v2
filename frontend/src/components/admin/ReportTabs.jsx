@@ -1,38 +1,33 @@
 import {
-    Squares2X2Icon,
-    CheckCircleIcon,
-    XCircleIcon,
-    ClockIcon,
+    DocumentTextIcon,
+    ArrowTrendingUpIcon,
+    ChartBarIcon,
 } from "@heroicons/react/24/outline";
+
 import { NavLink } from "react-router-dom";
 
 const tabs = [
     {
-        path: "/admin/orders/all",
-        label: "All",
-        icon: Squares2X2Icon,
+        path: "/admin/reports/balance_sheet",
+        label: "Balance Sheet",
+        icon: DocumentTextIcon,
     },
     {
-        path: "/admin/orders/completed",
-        label: "Completed",
-        icon: CheckCircleIcon,
+        path: "/admin/reports/cashflow",
+        label: "Cash Flow",
+        icon: ArrowTrendingUpIcon,
     },
     {
-        path: "/admin/orders/inprogress",
-        label: "In Progress",
-        icon: ClockIcon,
-    },
-    {
-        path: "/admin/orders/cancelled",
-        label: "Cancelled",
-        icon: XCircleIcon,
+        path: "/admin/reports/income_statement",
+        label: "Income Statement",
+        icon: ChartBarIcon,
     },
 ];
 
-export default function OrderTabs() {
+export default function ReportTabs() {
     return (
         <div className="w-full overflow-x-auto mb-4 scrollbar-hide">
-            <div className="flex min-w-max gap-1 sm:gap-2 border-gray-200">
+            <div className="flex min-w-max gap-1 sm:gap-2 border-gray-200 ">
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
 
@@ -45,10 +40,10 @@ export default function OrderTabs() {
                                 px-3 sm:px-4 py-2
                                 text-xs sm:text-sm font-medium
                                 whitespace-nowrap shrink-0
-                                border-b-2 transition-colors ${
+                                border-b-2 transition-colors  ${
                                     isActive
                                         ? "border-blue-500 text-blue-600"
-                                        : "border-transparent text-gray-500 hover:text-gray-700"
+                                        : "border-transparent text-gray-500 hover:border-b-2 hover:border-blue-500 hover:text-blue-600"
                                 }`
                             }
                         >

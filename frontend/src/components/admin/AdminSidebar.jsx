@@ -47,7 +47,7 @@ function AdminSidebar() {
         { name: "Payments", icon: CreditCardIcon, activeIcon: CreditCardIconSolid, to: "/admin/payment" },
         { name: "Sales", icon: ShoppingCartIcon, activeIcon: ShoppingCartIconSolid, to: "/admin/sales" },
         { name: "Expenses", icon: BanknotesIcon, activeIcon: BanknotesIconSolid, to: "/admin/expenses" },
-        { name: "Reports", icon: ChartBarIcon, activeIcon: ChartBarIconSolid, to: "/admin/reports" },
+        { name: "Reports", icon: ChartBarIcon, activeIcon: ChartBarIconSolid, to: "/admin/reports/" },
         { name: "Summary", icon: DocumentChartBarIcon, activeIcon: DocumentChartBarIconSolid, to: "/admin/summary" },
         { name: "Settings", icon: Cog6ToothIcon, activeIcon: Cog6ToothIconSolid, to: "/admin/settings" },
     ];
